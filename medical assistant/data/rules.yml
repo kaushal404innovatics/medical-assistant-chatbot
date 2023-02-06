@@ -2,12 +2,46 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+#- rule: Say goodbye anytime the user says goodbye
+#  steps:
+#  - intent: goodbye
+#  - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
+#- rule: Say 'I am a bot' anytime the user challenges
+#  steps:
+#  - intent: bot_challenge
+#  - action: utter_iamabot
+
+- rule: log in form
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - intent: log_in
+  - action: user_log_in_form
+  - active_loop: user_log_in_form
+#  - action: action_submit
+
+- rule: sign up form
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+#  - action: action_submit
+
+- rule: log in form deactivate
+  condition:
+  - active_loop: user_log_in_form
+  steps:
+  - action: user_log_in_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit
+
+- rule: sign up form deactivate
+  condition:
+  - active_loop: user_sign_up_form
+  steps:
+  - action: user_sign_up_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit

@@ -1,34 +1,76 @@
-version: "3.1"
-
+version: '3.1'
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
+- affirm
+- bot_challenge
+- deny
+- get_email
+- get_name:
+    ignore_entities:
+    - password
+    use_entities:
+    - name
+- get_password:
+    ignore_entities:
+    - name
+    use_entities:
+    - password
+- goodbye
+- greet
+- log_in
+- mood_great
+- mood_unhappy
+- sign_up
+entities:
+- password
+- email
+- name
+slots:
+  email:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: email
+  password:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: password
+  confirm_password:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: password
+  name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: name
+forms:
+  user_log_in_form:
+    required_slots:
+    - email
+    - password
+    - name
+  user_sign_up_form:
+    required_slots:
+    - email
+    - password
+    - confirm_password
+    - name
+actions:
+- action_ask_confirm_password
+- action_ask_email
+- action_ask_name
+- action_ask_password
+- action_submit
+- validate_user_log_in_form
+- validate_user_sign_up_form
+#- action_get_latest_reply
 responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
+  utter_wrong_email:
+  - text: Wrong format of email
+  utter_wrong_confirm_password:
+  - text: Password Mismatch
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

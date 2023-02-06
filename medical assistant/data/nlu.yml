@@ -1,91 +1,88 @@
 version: "3.1"
-
 nlu:
-- intent: greet
+- intent: log_in
   examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
-
-- intent: goodbye
+    - log in
+    - login
+    - i want to log in
+    - i want to get in
+    - Can I log in?
+    - I need to access my account
+    - Let me log in
+    - Log me in
+- intent: sign_up
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-
-- intent: affirm
+    - sign up
+    - signup
+    - sign in
+    - signin
+    - I want to sign in
+    - I want to creat my new account
+    - Can I create an account?
+    - I need to register
+    - Register
+    - I'd like to sign up
+- intent: get_email
   examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-
-- intent: deny
+    - [parth123@gmil.com](email)
+    - [kaushal234@gmail.com](email)
+    - this is my email [parth1465@gmail.com](email)
+    - [kaushal@gmail.com](email)
+    - [arora234@gmail.com](email)
+    - my email is [kaushal.arora@example.com](email)
+    - email: [parth.prajapati@gmail.com](email)
+    - [parth.prajapati@example.com](email) is my email address
+    - my email address is [parth.prajapati@gmail.com](email)
+    - email: [kaushal.arora@gmail.com](email)
+    - [kaushal.arora@example.com](email) is my email address
+    - my email address is [kaushal.arora@gmail.com](email)
+    - [kaushal.arora@example.com](email) that's my email
+    - the email is [kaushal.arora@gmail.com](email)
+    - I can be reached at [kaushal.arora@gmail.com](email)
+    - [kaushal.arora@example.com](email) is the email I use
+    - [kaushal.arora@gmail.com](email) that's my email id
+    - you can reach me at [kaushal.arora@example.com](email)
+    - my email is [kaushal.arora@gmail.com](email), feel free to reach me
+    - I use [kaushal.arora@example.com](email) as my email address
+    - [kaushal.arora@gmail.com](email), that's my email for correspondence
+    - [kaushal@g.com](email)
+    - [kaushal.arora@example.com](email)
+- intent: get_password
   examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-
-- intent: mood_great
+    - [parth@123](password)
+    - [kaushal_234](password)
+    - My password is [1234](password)
+    - keep [kaushal1123](password) as my password
+    - Keep [kaushal1123](password) as my new password
+    - I just set my password to [abcd_123](password)
+    - My password is now [123qwerty](password)
+    - I changed my password to [123456](password)
+    - My password is [123secret](password)
+    - I set a new password, [password123](password)
+    - My password is [passw0rd](password)
+    - I updated my password to [kaushal1123](password)
+    - My password is now [sunshine123](password)
+    - My password has been changed to [1trustno1](password)
+    - [kaushal1](password)
+    - [kaushal1234](password)
+    - [kaushal1122](password)
+    - [123456kaushal](password)
+    - [12456kaushal](password)
+    - [kaushal12345](password)
+- intent: get_name
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - [paRth prajapti](name)
+    - [kaushal arora](name)
+    - [chirag patel](name)
+    - [aakash chokshi](name)
+    - [kaushal](name)
+    - My name is [Manisha Gupta](name)
+    - I am called [Sarah](name)
+    - They call me [Amit](name)
+    - I go by the name of [Rohit](name)
+    - call me [Chirag](name)
+    - My name is [Thomas](name)
+    - I'm known as [Sachin](name)
+    - I am referred to as [Rajat Sharma](name)
+    - I go by the moniker of [Kaushal arora](name)
+    - My name is [Samantha](name)

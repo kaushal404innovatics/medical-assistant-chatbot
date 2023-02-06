@@ -2,29 +2,224 @@ version: "3.1"
 
 stories:
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+#- story: happy path
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: mood_great
+#  - action: utter_happy
+#
+#- story: sad path 1
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: mood_unhappy
+#  - action: utter_cheer_up
+#  - action: utter_did_that_help
+#  - intent: affirm
+#  - action: utter_happy
+#
+#- story: sad path 2
+#  steps:
+#  - intent: greet
+#  - action: utter_greet
+#  - intent: mood_unhappy
+#  - action: utter_cheer_up
+#  - action: utter_did_that_help
+#  - intent: deny
+#  - action: utter_goodbye
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
 
-- story: sad path 2
+- story: interactive_story_1
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushal@gmail.com
+  - slot_was_set:
+    - email: kaushal@gmail.com
+  - slot_was_set:
+    - requested_slot: password
+  - slot_was_set:
+    - password: kaushal_123
+  - slot_was_set:
+    - password: kaushal_123
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: kaushal
+  - slot_was_set:
+    - name: kaushal
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+
+- story: interactive_story_1
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushal234@gmail.com
+  - slot_was_set:
+    - email: kaushal234@gmail.com
+  - slot_was_set:
+    - requested_slot: password
+  - slot_was_set:
+    - name: kaushal1123
+  - slot_was_set:
+    - name: kaushal1123
+  - slot_was_set:
+    - requested_slot: password
+
+- story: interactive_story_1
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushal234@gmail.com
+  - slot_was_set:
+    - email: kaushal234@gmail.com
+  - slot_was_set:
+    - requested_slot: password
+  - slot_was_set:
+    - name: kaushal1123
+  - slot_was_set:
+    - name: kaushal1123
+  - slot_was_set:
+    - requested_slot: password
+  - intent: get_name
+    entities:
+    - name: kaushal_123
+  - slot_was_set:
+    - name: kaushal_123
+
+- story: interactive_story_1
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushal@g.com
+  - slot_was_set:
+    - email: kaushal@g.com
+  - slot_was_set:
+    - requested_slot: password
+  - intent: get_password
+    entities:
+    - password: kaushal1
+  - intent: get_password
+    entities:
+    - password: kaushal1
+  - intent: get_password
+    entities:
+    - password: kaushal1234
+  - slot_was_set:
+    - password: kaushal1234
+  - action: action_ask_confirm_password
+  - intent: get_password
+    entities:
+    - password: kaushal124
+  - slot_was_set:
+    - password: kaushal124
+  - intent: get_password
+    entities:
+    - password: kaushal1234
+  - slot_was_set:
+    - password: kaushal1234
+  - intent: get_password
+    entities:
+    - password: kaushal1122
+  - slot_was_set:
+    - password: kaushal1122
+  - action: action_ask_name
+  - intent: get_name
+    entities:
+    - name: kaushal
+  - slot_was_set:
+    - name: kaushal
+
+- story: interactive_story_1
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushal@gmail.com
+  - slot_was_set:
+    - email: kaushal@gmail.com
+  - slot_was_set:
+    - requested_slot: password
+  - slot_was_set:
+    - password: 123456kaushal
+  - slot_was_set:
+    - password: 123456kaushal
+  - slot_was_set:
+    - requested_slot: confirm_password
+  - slot_was_set:
+    - confirm_password: 12456kaushal
+  - slot_was_set:
+    - confirm_password: 12456kaushal
+  - slot_was_set:
+    - requested_slot: name
+  - slot_was_set:
+    - name: kaushal
+  - slot_was_set:
+    - name: kaushal
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit
+
+- story: interactive_story_1
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushalgmail.com
+  - slot_was_set:
+    - email: null
+  - slot_was_set:
+    - requested_slot: email
+
+- story: interactive_story_1
+  steps:
+  - intent: sign_up
+  - action: user_sign_up_form
+  - active_loop: user_sign_up_form
+  - slot_was_set:
+    - requested_slot: email
+  - slot_was_set:
+    - email: kaushal.arora@example.com
+  - slot_was_set:
+    - email: kaushal.arora@example.com
+  - slot_was_set:
+    - requested_slot: password
+  - slot_was_set:
+    - password: kaushal1234
+  - slot_was_set:
+    - password: kaushal12345
+  - slot_was_set:
+    - password: kaushal12345
+  - slot_was_set:
+    - confirm_password: kaushal12345
+  - slot_was_set:
+    - requested_slot: name
