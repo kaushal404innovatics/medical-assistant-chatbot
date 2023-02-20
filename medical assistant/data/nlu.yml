@@ -47,28 +47,18 @@ nlu:
     - [kaushal.arora@gmail.com](email), that's my email for correspondence
     - [kaushal@g.com](email)
     - [kaushal.arora@example.com](email)
-- intent: get_password
+- intent: get_OTP
   examples: |
-    - [parth@123](password)
-    - [kaushal_234](password)
-    - My password is [1234](password)
-    - keep [kaushal1123](password) as my password
-    - Keep [kaushal1123](password) as my new password
-    - I just set my password to [abcd_123](password)
-    - My password is now [123qwerty](password)
-    - I changed my password to [123456](password)
-    - My password is [123secret](password)
-    - I set a new password, [password123](password)
-    - My password is [passw0rd](password)
-    - I updated my password to [kaushal1123](password)
-    - My password is now [sunshine123](password)
-    - My password has been changed to [1trustno1](password)
-    - [kaushal1](password)
-    - [kaushal1234](password)
-    - [kaushal1122](password)
-    - [123456kaushal](password)
-    - [12456kaushal](password)
-    - [kaushal12345](password)
+    - [123456](OTP)
+    - [654321](OTP)
+    - [154789](OTP)
+    - My OTP is [789456](OTP)
+    - keep [654987](OTP) as my OTP
+    - Keep [654789](OTP) as my new OTP
+    - I just set my OTP to [159753](OTP)
+    - My OTP is now [357951](OTP)
+    - My OTP is [985432](OTP)
+
 - intent: get_name
   examples: |
     - [paRth prajapti](name)
@@ -86,3 +76,22 @@ nlu:
     - I am referred to as [Rajat Sharma](name)
     - I go by the moniker of [Kaushal arora](name)
     - My name is [Samantha](name)
+
+- intent: book_appointment
+  examples: |
+    - I want to book an appointment
+    - I would like to book an appointment
+    - I'd like to schedule a visit
+    - Can I schedule a check-up?
+    - I need to make an appointment
+    - Book me in for a consultation
+    - I'm looking to book a doctor's appointment
+    - Can I book an appointment for a health check?
+    - I need to schedule a doctor's appointment
+    - Can I book a medical appointment?
+    - I would like to make an appointment for a check-up
+    - I want to schedule a visit with a doctor
+    - I need to see a doctor, can I book an appointment?
+    - Can I schedule a medical consultation?
+    - I need to arrange a visit with a doctor
+    - I need to schedule a consultation with a health professional

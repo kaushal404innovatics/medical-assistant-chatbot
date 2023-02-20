@@ -1,76 +1,119 @@
 version: '3.1'
 intents:
-- affirm
-- bot_challenge
-- deny
-- get_email
-- get_name:
-    ignore_entities:
-    - password
-    use_entities:
-    - name
-- get_password:
-    ignore_entities:
-    - name
-    use_entities:
-    - password
-- goodbye
-- greet
-- log_in
-- mood_great
-- mood_unhappy
-- sign_up
+  - affirm
+  - bot_challenge
+  - deny
+  - get_email
+  - goodbye
+  - greet
+  - log_in
+  - mood_great
+  - mood_unhappy
+  - sign_up
+  - book_appointment
+  - get_name:
+      ignore_entities:
+      - OTP
+      use_entities:
+      - name
+  - get_OTP:
+      ignore_entities:
+      - name
+      use_entities:
+      - OTP
+
+
 entities:
-- password
+- OTP
 - email
 - name
+- appointment_time
+- appointment_date
+- patient_name
+- phone_number
+
 slots:
   email:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: email
-  password:
+  OTP:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
-      entity: password
-  confirm_password:
+      entity: OTP
+  confirm_OTP:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
-      entity: password
+      entity: OTP
   name:
     type: text
+    influence_conversation: false
     mappings:
     - type: from_entity
       entity: name
+  appointment_time:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: appointment_time
+  appointment_date:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: appointment_date
+
+  patient_name:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: form_entity
+      entity: patient_name
+  phone_number:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: form_entity
+      entity: phone_number
 forms:
   user_log_in_form:
     required_slots:
     - email
-    - password
+    - OTP
     - name
   user_sign_up_form:
     required_slots:
     - email
-    - password
-    - confirm_password
+    - OTP
     - name
+  book_appointment_form:
+    required_slots:
+    - appointment_time
+    - appointment_date
+    - patient_name
+    - phone_number
+
 actions:
-- action_ask_confirm_password
+- action_ask_confirm_OTP
 - action_ask_email
 - action_ask_name
-- action_ask_password
+- action_ask_OTP
 - action_submit
 - validate_user_log_in_form
 - validate_user_sign_up_form
 #- action_get_latest_reply
 responses:
-  utter_wrong_email:
-  - text: Wrong format of email
-  utter_wrong_confirm_password:
-  - text: Password Mismatch
+  utter_ask_patient_name:
+    - text: "Please enter patient name: "
+  utter_ask_appointment_time:
+    - text: "Please provide the right time: "
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

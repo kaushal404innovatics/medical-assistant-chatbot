@@ -38,19 +38,6 @@ class AskPassword(Action):
         return []
 
 
-class AskConfirmPassword(Action):
-
-    def name(self) -> Text:
-        return "action_ask_confirm_password"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="Confirm password")
-
-        return []
-
-
 class Actionaskname(Action):
     def name(self) -> Text:
         return "action_ask_name"
@@ -76,15 +63,17 @@ class ActionSubmit(Action):
         name = tracker.get_slot("name")
         dispatcher.utter_message(text=f"Hey {name}, you Email is {email}.")
 
-        return [SlotSet("confirm_password", None), SlotSet("name", None), SlotSet("password", None),
+        return [ SlotSet("name", None), SlotSet("password", None),
                 SlotSet("email", None)]
 
 
 class ValidateLogInForm(FormValidationAction):
     def __init__(self):
         self.event_history = set()
+
     def name(self) -> Text:
         return "validate_user_log_in_form"
+
     def check_intent_and_question(self, intent_name, tracker, dispatcher):
         for d in tracker.events[::-1]:
             if d.get("event") == "bot":
@@ -124,12 +113,12 @@ class ValidateLogInForm(FormValidationAction):
                 return {"email": slot_value}
 
         if "@" not in slot_value:
-            dispatcher.utter_template("utter_wrong_email", tracker)
+            dispatcher.utter_message(text="Wrong email format")
             return {"email": None}
 
         return {"email": slot_value}
 
-    async def validate_password(
+    async def validate_OTP(
             self, slot_value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
         # is_intent_question, is_already_filled = self.check_intent_and_question("password", tracker, dispatcher)
@@ -138,8 +127,8 @@ class ValidateLogInForm(FormValidationAction):
         #         return {"password": None}
         #     else:
         #         return {"password": slot_value}
-
-        return {"password": slot_value}
+        if slot_value == "123456":
+            return {"OTP": slot_value}
 
     # async def validate_name(
     #         self, slot_value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -163,24 +152,19 @@ class ValidateSignupForm(FormValidationAction):
             domain: "DomainDict",
     ) -> List[Text]:
         print('<sign Form>')
-        return ["email", "password", "confirm_password", "name"]
+        return ["email", "OTP", "name"]
 
     def check_intent_and_question(self, intent_name, tracker, dispatcher):
         for d in tracker.events[::-1]:
             if d.get("event") == "bot":
                 last_bot = d
-                intent_list = ["email", "Confirm password", "password", "name"]
+                intent_list = ["email", "OTP", "name"]
                 self.event_history.add(last_bot['text'])
                 if intent_name in last_bot['text']:
                     return True, self.event_history
                 else:
-                    if last_bot['text'] == "Enter password":
-                        dispatcher.utter_message(
-                            text="Password length should be more the 8 charaters and contain atleast "
-                                 "1 digit ")
-                    else:
-                        dispatcher.utter_message(
-                            text="Invalid " + next((msg for msg in intent_list if msg in last_bot['text']), None))
+                    dispatcher.utter_message(
+                        text="Invalid " + next((msg for msg in intent_list if msg in last_bot['text']), None))
                     return False, self.event_history
 
     async def validate_email(
@@ -194,45 +178,44 @@ class ValidateSignupForm(FormValidationAction):
                 return {"email": slot_value}
 
         if "@" not in slot_value:
-            dispatcher.utter_template("utter_wrong_email", tracker)
+            dispatcher.utter_message(text="Wrong email format")
             return {"email": None}
 
         return {"email": slot_value}
 
-    async def validate_password(
+    async def validate_OTP(
             self, slot_value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-        # text_of_last_user_message = tracker.latest_message.get("password")
-        is_intent_question, is_already_filled = self.check_intent_and_question("password", tracker, dispatcher)
+        is_intent_question, is_already_filled = self.check_intent_and_question("OTP", tracker, dispatcher)
         if not is_intent_question:
-            if "Enter password" not in is_already_filled:
-                return {"password": None}
+            if "Enter OTP" not in is_already_filled:
+                return {"OTP": None}
             else:
-                return {"password": slot_value}
+                return {"OTP": slot_value}
 
-        if len(slot_value) < 8:
-            dispatcher.utter_template("utter_password_length", tracker)
-            return {"password": None}
+        if slot_value == 123456:
+            dispatcher.utter_message(text="Wrong OTP")
+            return {"OTP": None}
 
-        return {"password": slot_value}
+        return {"OTP": slot_value}
 
-    async def validate_confirm_password(self, slot_value: Any, dispatcher: CollectingDispatcher,
-                                        tracker: Tracker,
-                                        domain: Dict[str, Any]) -> Dict[str, None]:
-
-        password = tracker.get_slot("password")
-        confirm_password = slot_value
-        is_intent_question, is_already_filled = self.check_intent_and_question("confirm_password", tracker, dispatcher)
-        if not is_intent_question:
-            if "Confirm password" not in is_already_filled:
-                return {"confirm_password": None}
-            else:
-                return {"confirm_password": slot_value}
-        if password == confirm_password:
-            return {"confirm_password": slot_value}
-        else:
-            dispatcher.utter_message(text="Password Mismatch")
-            return {"confirm_password": None}
+    # async def validate_confirm_password(self, slot_value: Any, dispatcher: CollectingDispatcher,
+    #                                     tracker: Tracker,
+    #                                     domain: Dict[str, Any]) -> Dict[str, None]:
+    #
+    #     password = tracker.get_slot("password")
+    #     confirm_password = slot_value
+    #     is_intent_question, is_already_filled = self.check_intent_and_question("confirm_password", tracker, dispatcher)
+    #     if not is_intent_question:
+    #         if "Confirm password" not in is_already_filled:
+    #             return {"confirm_password": None}
+    #         else:
+    #             return {"confirm_password": slot_value}
+    #     if password == confirm_password:
+    #         return {"confirm_password": slot_value}
+    #     else:
+    #         dispatcher.utter_message(text="Password Mismatch")
+    #         return {"confirm_password": None}
 
     async def validate_name(
             self, slot_value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
@@ -247,3 +230,5 @@ class ValidateSignupForm(FormValidationAction):
 
         print(slot_value)
         return {"name": slot_value}
+
+

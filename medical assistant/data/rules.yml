@@ -45,3 +45,19 @@ rules:
   - slot_was_set:
     - requested_slot: null
   - action: action_submit
+
+- rule: appointment form
+  steps:
+  - intent: book_appointment
+  - action: book_appointment_form
+  - active_loop: book_appointment_form
+
+- rule: appointment form deactivate
+  condition:
+  - active_loop: book_appointment_form
+  steps:
+  - action: book_appointment_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+  - action: action_submit
